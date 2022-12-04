@@ -1,19 +1,21 @@
 const puppeteer = require("puppeteer");
 
-const scrapeWeb = async () => {
+const scrapeWeb = async (item) => {
+	// Regex
+	const updatedItem = item.split(" ").join("+");
 	// Open browser
 	const browser = await puppeteer.launch({ headless: false });
 	// Opens new tab in browser
 	const page = await browser.newPage();
 	// Enter link in tab
-	await page.goto(
-		"https://www.idealo.co.uk/mscat.html?q=playstation+5+console"
-	);
+	await page.goto(`https://www.idealo.co.uk/mscat.html?q=${updatedItem}`);
 	/* Getting Multiple Elements */
 	const elements = await page.evaluate(() => {
-		const element = document.querySelectorAll(".offerList-itemWrapper");
+		const allElements = document.querySelectorAll(".offerList-itemWrapper");
 		let array = [];
-		element.forEach((item) => {
+		allElements.forEach((item, i) => {
+			// link
+			const link = item.href;
 			// title
 			const title = item.querySelector(".offerList-item-description-title");
 			// price
@@ -24,11 +26,18 @@ const scrapeWeb = async () => {
 
 			// img
 			const img = item.querySelector(".offerList-item-image");
-			array.push({
-				title: title.innerText,
-				price: updatedPrice,
-				img: img.src,
-			});
+
+			if (
+				img.src !== "https://cdn.idealo.com/storage/ipc/pics/common/spacer.png"
+			) {
+				array.push({
+					title: title.innerText,
+					price: updatedPrice,
+					img: img.src,
+					link,
+					index: i,
+				});
+			}
 		});
 
 		return { titles: array };
@@ -42,8 +51,7 @@ const comparePrice = async (req, res) => {
 	const { item } = req.params;
 	try {
 		const data = await scrapeWeb(item);
-		console.log(data);
-		res.status(200).json({ results: data });
+		res.status(200).json(data);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
