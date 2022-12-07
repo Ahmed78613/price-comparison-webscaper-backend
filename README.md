@@ -2,7 +2,7 @@
 
 ## Deployed on:
 
-- Not Dopyed Yet
+- Not Yet Deployed
 
 ## Routes
 
