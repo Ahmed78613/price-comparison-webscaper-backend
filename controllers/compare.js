@@ -40,7 +40,7 @@ const scrapeWeb = async (item) => {
 			}
 		});
 
-		return { titles: array };
+		return array;
 	});
 
 	await browser.close();
