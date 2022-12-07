@@ -4,9 +4,13 @@ const scrapeWeb = async (item) => {
 	// Regex
 	const updatedItem = item.split(" ").join("+");
 	// Open browser
-	const browser = await puppeteer.launch({ headless: false });
+	const browser = await puppeteer.launch({ headless: true });
+
 	// Opens new tab in browser
 	const page = await browser.newPage();
+	await page.setUserAgent(
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
+	);
 	// Enter link in tab
 	await page.goto(`https://www.idealo.co.uk/mscat.html?q=${updatedItem}`);
 	/* Getting Multiple Elements */
@@ -42,8 +46,6 @@ const scrapeWeb = async (item) => {
 
 		return array;
 	});
-
-	await browser.close();
 	return elements;
 };
 
