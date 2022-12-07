@@ -10,7 +10,7 @@
 | ----------- | --------------------- | -------------------------------------------------------- |
 | GET         | /                     | 'Welcome Message!'                                       |
 | GET         | /compare/:item        | Price Compare Item                                       |
-| GET         | /items/top-deals      | Gets Top Trending Deals (Price compare)                  |
+| GET         | /items/top-deals      | Gets Top Trending Deals                                  |
 
 
 ## Technologies
