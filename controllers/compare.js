@@ -110,7 +110,7 @@ const priceRunner = async (item) => {
 	// Open browser
 	const browser = await puppeteer.launch({
 		args: ["--no-sandbox"],
-		headless: false,
+		headless: true,
 		ignoreHTTPSErrors: true,
 		executablePath: executablePath(),
 	});
