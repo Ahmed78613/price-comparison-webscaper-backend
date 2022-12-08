@@ -6,13 +6,13 @@
 
 ## Routes
 
-| HTTP Method | Route                 | Explanation                                              |
-| ----------- | --------------------- | -------------------------------------------------------- |
-| GET         | /                     | 'Welcome Message!'                                       |
-| GET         | /compare/:item        | Price Compare Item (Idealo)                              |
-| GET         | /items/top-deals      | Gets Top Trending Deals (Idealo)                         |
-| GET         | /compare/alt/:item    | Price Compare Item   (PriceRunner)                       |
-| GET         | /deals/items          | Gets Top Trending Deals (PriceRunner)                    |
+| HTTP Method | Route                         | Explanation                                              |
+| ----------- | ---------------------         | -------------------------------------------------------- |
+| GET         | /                             | 'Welcome Message!'                                       |
+| GET         | /compare/:item                | Price Compare Item (Idealo)                              |
+| GET         | /compare/items/top-deals      | Gets Top Trending Deals (Idealo)                         |
+| GET         | /compare/alt/:item            | Price Compare Item   (PriceRunner)                       |
+| GET         | /compare/deals/items          | Gets Top Trending Deals (PriceRunner)                    |
 
 
 
