@@ -2,13 +2,13 @@
 
 ## Deployed on:
 
-- Not Yet Deployed
+- Render
 
 ## Routes
 
 | HTTP Method | Route                         | Explanation                                              |
 | ----------- | ---------------------         | -------------------------------------------------------- |
-| GET         | /                             | 'Welcome Message!'                                       |
+| GET         | /                             | "Welcome To Our Web scraping Price Comparison API!"                                      |
 | GET         | /compare/:item                | Price Compare Item (Idealo)                              |
 | GET         | /compare/items/top-deals      | Gets Top Trending Deals (Idealo)                         |
 | GET         | /compare/alt/:item            | Price Compare Item   (PriceRunner)                       |
