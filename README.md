@@ -11,6 +11,7 @@
 | GET         | /                     | 'Welcome Message!'                                       |
 | GET         | /compare/:item        | Price Compare Item                                       |
 | GET         | /items/top-deals      | Gets Top Trending Deals                                  |
+| GET         | /compare/alt/:item    | Gets Top Trending Deals                                  |
 
 
 ## Technologies
@@ -19,5 +20,7 @@
 - Express
 - JavaScript
 - Puppeteer
+- Puppeteer-extra
+- puppeteer-extra-plugin-stealth
 - Nodemon
 
