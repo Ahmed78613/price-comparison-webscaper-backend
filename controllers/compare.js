@@ -17,9 +17,9 @@ const scrapeWeb = async (item) => {
 
 	// Opens new tab in browser
 	const page = await browser.newPage();
-	// await page.setUserAgent(
-	// 	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
-	// );
+	await page.setUserAgent(
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
+	);
 	// Enter link in tab
 	await page.goto(`https://www.idealo.co.uk/mscat.html?q=${updatedItem}`);
 
@@ -117,9 +117,6 @@ const priceRunner = async (item) => {
 
 	// Opens new tab in browser
 	const page = await browser.newPage();
-	// await page.setUserAgent(
-	// 	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
-	// );
 	// Enter link in tab
 	await page.goto(
 		`https://www.pricerunner.com/results?q=${updatedItem}&suggestionsActive=true&suggestionClicked=false&suggestionReverted=false`
@@ -191,6 +188,70 @@ const priceRunner = async (item) => {
 	return elements;
 };
 
+const priceRunnerTendingDeals = async () => {
+	// Stealth
+	puppeteer.use(hidden());
+	// Open browser
+	const browser = await puppeteer.launch({
+		args: ["--no-sandbox"],
+		headless: true,
+		ignoreHTTPSErrors: true,
+		executablePath: executablePath(),
+	});
+
+	// Opens new tab in browser
+	const page = await browser.newPage();
+	// Enter link in tab
+	await page.goto(`https://www.pricerunner.com/bo/popular-products`);
+
+	await page.click(".KYuPdOZh2w.pr-c9kuyn");
+
+	/* Getting Multiple Elements */
+	const elements = await page.evaluate(() => {
+		let titles = [];
+		let prices = [];
+		let images = [];
+		let links = [];
+		let ratings = [];
+
+		const allTitles = document.querySelectorAll(".pr-16uzt6l");
+		allTitles.forEach((item, i) => {
+			titles.push({ link: item.textContent });
+		});
+		const allPrices = document.querySelectorAll(".pr-be5x0o");
+		allPrices.forEach((item, i) => {
+			prices.push({ prices: item.textContent });
+		});
+		const allImages = document.querySelectorAll(".cHORm9q4_D.pr-19l9ibq img");
+		allImages.forEach((item, i) => {
+			images.push({ img: item.src });
+		});
+		const allLinks = document.querySelectorAll(".mIkxpLfxgo.pr-syqquf a");
+		allLinks.forEach((item, i) => {
+			links.push({ link: item.href });
+		});
+		const allRatings = document.querySelectorAll(".pr-1ob9nd8");
+		allRatings.forEach((item, i) => {
+			ratings.push({ rating: item.innerText });
+		});
+
+		const AllData = titles.map((item, i) => {
+			return {
+				item,
+				...titles[i],
+				...prices[i],
+				...images[i],
+				...links[i],
+				...ratings[i],
+			};
+		});
+
+		return AllData;
+	});
+
+	return elements;
+};
+
 const comparePrice = async (req, res) => {
 	const { item } = req.params;
 	try {
@@ -212,7 +273,6 @@ const getTopDeals = async (req, res) => {
 
 const comparePriceAlt = async (req, res) => {
 	const { item } = req.params;
-
 	try {
 		const data = await priceRunner(item);
 		res.status(200).json(data);
@@ -220,4 +280,19 @@ const comparePriceAlt = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
-module.exports = { comparePrice, getTopDeals, comparePriceAlt };
+
+const topDealsAlt = async (req, res) => {
+	try {
+		const data = await priceRunnerTendingDeals();
+		res.status(200).json(data);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+module.exports = {
+	comparePrice,
+	getTopDeals,
+	comparePriceAlt,
+	priceRunnerTendingDeals,
+	topDealsAlt,
+};
