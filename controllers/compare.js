@@ -222,7 +222,7 @@ const priceRunnerTendingDeals = async () => {
 
 		const allTitles = document.querySelectorAll(".pr-16uzt6l");
 		allTitles.forEach((item, i) => {
-			titles.push({ link: item.textContent });
+			titles.push({ title: item.textContent });
 		});
 		const allPrices = document.querySelectorAll(".pr-be5x0o");
 		allPrices.forEach((item, i) => {
