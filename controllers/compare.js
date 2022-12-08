@@ -243,7 +243,6 @@ const priceRunnerTendingDeals = async () => {
 
 		const AllData = titles.map((item, i) => {
 			return {
-				item,
 				...titles[i],
 				...prices[i],
 				...images[i],
