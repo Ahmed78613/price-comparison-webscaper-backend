@@ -9,9 +9,11 @@
 | HTTP Method | Route                 | Explanation                                              |
 | ----------- | --------------------- | -------------------------------------------------------- |
 | GET         | /                     | 'Welcome Message!'                                       |
-| GET         | /compare/:item        | Price Compare Item                                       |
-| GET         | /items/top-deals      | Gets Top Trending Deals                                  |
-| GET         | /compare/alt/:item    | Gets Top Trending Deals                                  |
+| GET         | /compare/:item        | Price Compare Item (Idealo)                              |
+| GET         | /items/top-deals      | Gets Top Trending Deals (Idealo)                         |
+| GET         | /compare/alt/:item    | Price Compare Item   (PriceRunner)                       |
+| GET         | /deals/items          | Gets Top Trending Deals (PriceRunner)                    |
+
 
 
 ## Technologies
