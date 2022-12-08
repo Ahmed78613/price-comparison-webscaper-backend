@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer-extra");
 const hidden = require("puppeteer-extra-plugin-stealth");
 const { executablePath } = require("puppeteer");
+const { defaultData } = require("../data");
 
 const scrapeWeb = async (item) => {
 	// Stealth
@@ -294,10 +295,20 @@ const topDealsAlt = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
+
+const getScrapedData = async (req, res) => {
+	try {
+		res.status(200).json(defaultData);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
 module.exports = {
 	comparePrice,
 	getTopDeals,
 	comparePriceAlt,
 	priceRunnerTendingDeals,
 	topDealsAlt,
+	getScrapedData,
 };
