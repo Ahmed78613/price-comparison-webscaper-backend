@@ -61,7 +61,13 @@ const scrapeWeb = async (item) => {
 
 const topDeals = async () => {
 	// Open browser
-	const browser = await puppeteer.launch({ headless: true });
+	// Open browser
+	const browser = await puppeteer.launch({
+		args: ["--no-sandbox"],
+		headless: true,
+		ignoreHTTPSErrors: true,
+		executablePath: executablePath(),
+	});
 	// Opens new tab in browser
 	const page = await browser.newPage();
 	await page.setUserAgent(
